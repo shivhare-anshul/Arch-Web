@@ -1,3 +1,142 @@
+// Enhanced Hero Animations
+document.addEventListener('DOMContentLoaded', () => {
+    // Hero section animations
+    const heroElements = document.querySelectorAll('.animate-slide-in, .animate-slide-in-delay, .animate-slide-in-delay-2');
+    
+    heroElements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateX(-50px)';
+    });
+
+    // Trigger hero animations on page load
+    setTimeout(() => {
+        heroElements.forEach((el, index) => {
+            setTimeout(() => {
+                el.style.transition = 'all 1s ease-out';
+                el.style.opacity = '1';
+                el.style.transform = 'translateX(0)';
+            }, index * 300);
+        });
+    }, 500);
+
+    // Floating elements interaction
+    const floatingElements = document.querySelectorAll('.floating-element');
+    
+    floatingElements.forEach(element => {
+        element.addEventListener('mouseenter', () => {
+            element.style.transform = 'scale(1.2) rotate(10deg)';
+            element.style.color = 'rgba(44, 62, 80, 0.8)';
+            element.style.transition = 'all 0.3s ease';
+        });
+        
+        element.addEventListener('mouseleave', () => {
+            element.style.transform = 'scale(1) rotate(0deg)';
+            element.style.color = 'rgba(44, 62, 80, 0.3)';
+        });
+    });
+
+    // Welcome section animations
+    const welcomeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const welcomeText = entry.target.querySelector('.welcome-text');
+                const welcomeImages = entry.target.querySelector('.welcome-images');
+                const valueItems = entry.target.querySelectorAll('.value-item');
+                
+                if (welcomeText) {
+                    welcomeText.style.animation = 'fadeInUp 1s ease-out';
+                }
+                
+                if (welcomeImages) {
+                    welcomeImages.style.animation = 'fadeInUp 1s ease-out 0.3s both';
+                }
+                
+                valueItems.forEach((item, index) => {
+                    setTimeout(() => {
+                        item.style.animation = 'fadeInUp 0.8s ease-out both';
+                    }, index * 200);
+                });
+                
+                welcomeObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+    
+    const welcomeSection = document.querySelector('.welcome');
+    if (welcomeSection) {
+        welcomeObserver.observe(welcomeSection);
+    }
+
+    // Timeline animations
+    const timelineObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const timelineItems = entry.target.querySelectorAll('.timeline-item');
+                
+                timelineItems.forEach((item, index) => {
+                    setTimeout(() => {
+                        item.style.animation = `slideInTimeline 0.8s ease-out ${index * 0.2}s both`;
+                    }, index * 200);
+                });
+                
+                timelineObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+    
+    const timelineSection = document.querySelector('.design-process-timeline');
+    if (timelineSection) {
+        timelineObserver.observe(timelineSection);
+    }
+
+    // Features animations
+    const featuresObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const featureCards = entry.target.querySelectorAll('.feature-card');
+                
+                featureCards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.style.animation = `slideInFeature 0.8s ease-out ${index * 0.1}s both`;
+                    }, index * 100);
+                });
+                
+                featuresObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.2 });
+    
+    const featuresSection = document.querySelector('.why-choose-us');
+    if (featuresSection) {
+        featuresObserver.observe(featuresSection);
+    }
+
+    // Timeline item hover effects
+    document.querySelectorAll('.timeline-item').forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px)';
+            this.style.transition = 'all 0.3s ease';
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+
+    // Feature card hover effects
+    document.querySelectorAll('.feature-card').forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-15px) scale(1.02)';
+            this.style.boxShadow = '0 25px 50px rgba(0,0,0,0.2)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+            this.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
+        });
+    });
+});
+
 // Mobile Navigation Toggle
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
